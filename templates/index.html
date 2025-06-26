@@ -1,167 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title> for you </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --main-bg: linear-gradient(to right, #fbc2eb, #a6c1ee);
-      --text-color: #ffffff;
-      --accent-color: #ff66cc;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
       margin: 0;
       padding: 0;
-      background: var(--main-bg);
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--text-color);
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #fff;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-    }
-
-    .container {
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    }
-
-    .typewriter {
-      font-size: 2.5em;
-      font-weight: bold;
+      height: 100vh;
       overflow: hidden;
-      white-space: nowrap;
-      border-right: .15em solid white;
-      width: 0;
-      animation: typing 3.5s steps(13) forwards, blink .75s step-end infinite;
-      text-shadow: 0 0 20px #fff, 0 0 40px var(--accent-color);
-    }
+    }.container {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  max-width: 90%;
+}
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 13ch }
-    }
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.8em;
+  margin-bottom: 20px;
+  animation: fadeInDown 2s ease;
+}
 
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
+p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
 
-    .counter {
-      margin-top: 20px;
-      font-size: 1.1em;
-      background-color: rgba(255, 255, 255, 0.15);
-      padding: 10px 20px;
-      border-radius: 20px;
-      box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
-    }
+.btn {
+  padding: 12px 30px;
+  background: #fff;
+  color: #ee5a88;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    .footer {
-      position: absolute;
-      bottom: 15px;
-      font-size: 0.9em;
-      color: #fefefe;
-      opacity: 0.8;
-    }
+.btn:hover {
+  background: #ee5a88;
+  color: #fff;
+}
 
-    .heart {
-      position: absolute;
-      top: -10px;
-      color: var(--accent-color);
-      opacity: 0.7;
-      animation: fall 6s linear infinite;
-    }
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
+/* Floating hearts */
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
+  background-size: contain;
+  animation: float 6s infinite ease-in;
+}
 
-    .audio-btn {
-      margin-top: 15px;
-      padding: 8px 18px;
-      border: none;
-      border-radius: 20px;
-      background: #fff;
-      color: var(--accent-color);
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-      transition: 0.3s ease;
-    }
+@keyframes float {
+  0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+}
 
-    .audio-btn:hover {
-      background-color: var(--accent-color);
-      color: #fff;
-    }
-
-    @media (max-width: 600px) {
-      .typewriter {
-        font-size: 2em;
-      }
-      .counter {
-        font-size: 1em;
-      }
-    }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <div class="typewriter">I love you</div>
-    <div class="counter">❤️ Số lượt truy cập: {{ counter }}</div>
-    <button class="audio-btn" onclick="toggleAudio()">🎵 Bật/Tắt Nhạc</button>
-  </div>
-
-  <div class="footer"> Nam2006- Hosted with love ❤️</div>
-
-  <!-- Audio -->
-  <audio id="bgMusic" loop>
-    <source src="/static/love.mp3" type="audio/mp3">
-    Trình duyệt bạn không hỗ trợ audio rồi 😢
-  </audio>
-
-  <script>
-    // Heart rain
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerText = '💖';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    00000000
-  }, 250);
-
-    // Toggle audio
-    const audio = document.getElementById("bgMusic");
-    function toggleAudio() {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
+    <h1>Just For You 💖</h1>
+    <p>You are special, loved, and appreciated. Always remember that.</p>
+    <button class="btn" onclick="playLove()">Play Music 🎵</button>
+    <audio id="loveAudio" src="/static/love.mp3"></audio>
+  </div>  <!-- Floating hearts -->  <script>
+    function playLove() {
+      document.getElementById('loveAudio').play();
     }
 
-    // Try autoplay
-    window.addEventListener('load', () => {
-      audio.play().catch(() => {
-        console.log("Autoplay bị chặn, phải bấm nút");
-      });
-    });
-  </script>
-
-</body>
+    for (let i = 0; i < 15; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(heart);
+    }
+  </script></body>
 </html>
